@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
-import MapContainer from "./MapContainer"
+import ListLocations from "./Components/ListLocations"
+import MapContainer from "./Components/MapContainer"
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="main">
+        <ListLocations/>
         <MapContainer/>
       </div>
     );
