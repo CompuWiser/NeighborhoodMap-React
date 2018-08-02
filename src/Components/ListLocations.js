@@ -4,14 +4,16 @@ import "./ListLocations.css";
 class ListLocations extends Component {
   render() {
     return (
-      <ul className="list-locations">
-        <li>Item1</li>
-        <li>Item2</li>
-        <li>Item3</li>
-        <li>Item4</li>
-        <li>Item5</li>
-        <li>Item6</li>        
-      </ul>
+      <div className="list-locations">
+        <input type="text" placeholder="Filter Markers"/>
+        <ul>
+          {this.props.locations.map(location => (
+            <li key={location.googleMapsPlaceID}>
+              <a href="/">{location.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }

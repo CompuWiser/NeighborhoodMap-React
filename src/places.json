@@ -1,0 +1,40 @@
+{
+  "locations": [
+    {
+      "name": "Farghaly Fruits",
+      "lat": 30.0461409,
+      "lng": 31.1947701,
+      "googleMapsPlaceID": "ChIJsRMN6DtBWBQRX9_lbMqyLdY"
+    },
+    {
+      "name": "El-Amoudy Restaurant",
+      "lat": 30.0453541,
+      "lng": 31.1957567,
+      "googleMapsPlaceID": "ChIJ0zHGFjVBWBQRwG_1vC8mRFw"
+    },
+    {
+      "name": "El-Malky Desserts",
+      "lat": 30.045336,
+      "lng": 31.194968,
+      "googleMapsPlaceID": "ChIJ_7TiaTVBWBQRI0xlV8MH41w"
+    },
+    {
+      "name": "Hardee's",
+      "lat": 30.0550523,
+      "lng": 31.2039674,
+      "googleMapsPlaceID": "ChIJEy0IIjtBWBQRlZawWQEueNc"
+    },
+    {
+      "name": "Starbucks Coffee",
+      "lat": 30.050625,
+      "lng": 31.200628,
+      "googleMapsPlaceID": "ChIJ25Qa5DBBWBQRL7wa8nQCOZE"
+    },
+    {
+      "name": "Ad-Doqi Shooting Club",
+      "lat": 30.04549009999999,
+      "lng": 31.2018179,
+      "googleMapsPlaceID": "ChIJ399dnTRBWBQRItv09gUzxSY"
+    }
+  ]
+}

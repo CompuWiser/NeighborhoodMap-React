@@ -1,3 +1,22 @@
-ul.list-locations {
+div.list-locations {
   flex-basis: 16%;
+}
+
+div.list-locations input {
+  width: 100%;
+  font-size: 1.8em;
+}
+
+div.list-locations ul {
+  width: 100%;
+  padding-left: 20px;
+}
+
+div.list-locations li {
+  list-style: none;
+  font-size: 1.9em;
+}
+
+div.list-locations li a {
+  text-decoration: none;
 }

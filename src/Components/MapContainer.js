@@ -5,10 +5,23 @@ import "./MapContainer.css";
 export class MapContainer extends Component {
   render() {
     return (
-      <Map className="map" google={this.props.google} zoom={14}>
+      <Map
+        className="map"
+        google={this.props.google}
+        initialCenter={{
+            lat: 30.050,
+            lng: 31.203
+          }}
+        zoom={17}
+      >
 
-        <Marker onClick={this.onMarkerClick}
-                name={"Current location"} />
+        {this.props.locations.map(location => (
+          <Marker
+            title={location.name}
+            name={location.name}
+            position={{ lat: location.lat, lng: location.lng }}
+          />
+        ))}
 
         <InfoWindow onClose={this.onInfoWindowClose}>
             <div>
