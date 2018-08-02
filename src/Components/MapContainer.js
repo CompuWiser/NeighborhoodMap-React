@@ -15,8 +15,9 @@ export class MapContainer extends Component {
         zoom={17}
       >
 
-        {this.props.locations.map(location => (
+        {this.props.locations.map((location, index) => (
           <Marker
+            key={index}
             title={location.name}
             name={location.name}
             position={{ lat: location.lat, lng: location.lng }}

@@ -7,8 +7,8 @@ class ListLocations extends Component {
       <div className="list-locations">
         <input type="text" placeholder="Filter Markers"/>
         <ul>
-          {this.props.locations.map(location => (
-            <li key={location.googleMapsPlaceID}>
+          {this.props.locations.map((location, index) => (
+            <li key={index}>
               <a href="/">{location.name}</a>
             </li>
           ))}
