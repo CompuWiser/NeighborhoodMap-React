@@ -6,15 +6,23 @@ export class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {},
+    selectedPlace: {
+      info: {
+        address: ["temp"],
+        category: "placeholder"
+      },
+
+    }
   };
 
-  onMarkerClick = (props, marker, e) =>
+  onMarkerClick = (selectedPlace, activeMarker, e) => {
     this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
+      selectedPlace,
+      activeMarker,
       showingInfoWindow: true
     });
+    console.log(this.state);
+  }
 
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
@@ -43,6 +51,7 @@ export class MapContainer extends Component {
             key={index}
             title={location.name}
             name={location.name}
+            info={location.FS_Info}
             position={{ lat: location.lat, lng: location.lng }}
             onClick={this.onMarkerClick}
           />
@@ -51,9 +60,20 @@ export class MapContainer extends Component {
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-            </div>
+          <div>
+            <h2>{this.state.selectedPlace.info.name || this.state.selectedPlace.name}</h2>
+            <p className="category">Category: {this.state.selectedPlace.info.category}</p>
+            <ul className="address">
+              Address:
+              {
+                this.state.selectedPlace.info.address.map((element, index) => (
+                  <li key={index}>
+                    {element}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
         </InfoWindow>
       </Map>
     );

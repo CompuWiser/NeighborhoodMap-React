@@ -11,7 +11,11 @@ class App extends Component {
   componentDidMount() {
     let jsonFile = require("./places.json");
     let locations = jsonFile.locations;
-    this.setState({locations});
+    locations = locations.map((location) => {
+      location.FS_Info = this.getInfoFromFoursquare(location);
+      return location;
+    });
+    this.setState({ locations });
   }
 
   getInfoFromFoursquare({lat, lng, name}) {
@@ -38,12 +42,13 @@ class App extends Component {
         response.json()
           .then(function (data) {
             var locationData = data.response.venues[0];
-            
+
             info.name = locationData.name;
             info.locationID = locationData.id;
             info.address = locationData.location.formattedAddress;
             info.category = locationData.categories[0].name;
-          });
+          })
+          .catch(console.log);
       })
       .catch(function (err) {
         console.log(err);
@@ -53,13 +58,6 @@ class App extends Component {
 
 
   render() {
-    let info = this.getInfoFromFoursquare({
-      name: "Farghaly Fruits",
-      lat: 30.0461409,
-      lng: 31.1947701,
-      googleMapsPlaceID: "ChIJsRMN6DtBWBQRX9_lbMqyLdY"
-    });
-    console.log(info);
 
     return (
       <div className="main">
