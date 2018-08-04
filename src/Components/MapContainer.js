@@ -10,8 +10,7 @@ export class MapContainer extends Component {
       info: {
         address: ["temp"],
         category: "placeholder"
-      },
-
+      }
     }
   };
 
@@ -21,7 +20,6 @@ export class MapContainer extends Component {
       activeMarker,
       showingInfoWindow: true
     });
-    console.log(this.state);
   }
 
   onMapClicked = (props) => {
@@ -54,6 +52,7 @@ export class MapContainer extends Component {
             info={location.FS_Info}
             position={{ lat: location.lat, lng: location.lng }}
             onClick={this.onMarkerClick}
+            animation={location.name === this.state.selectedPlace.name && (1)}
           />
         ))}
 
