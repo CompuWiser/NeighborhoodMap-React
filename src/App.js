@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import "./App.css";
 import ListLocations from "./Components/ListLocations"
 import MapContainer from "./Components/MapContainer"
+import escapeRegExp from "escape-string-regexp";
 
 class App extends Component {
   state = {
-    locations: []
+    locations: [],
+    query: ""
   };
 
   componentDidMount() {
@@ -16,6 +18,14 @@ class App extends Component {
       return location;
     });
     this.setState({ locations });
+  }
+
+  updateQuery = (query) => {
+    this.setState({ query: query.trim() })
+  }
+
+  clearQuery = () => {
+    this.setState({ query: "" })
   }
 
   getInfoFromFoursquare({lat, lng, name}) {
@@ -58,14 +68,25 @@ class App extends Component {
 
 
   render() {
+    let { locations, query } = this.state;
+
+    let showingLocations;
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), "i")
+      showingLocations = locations.filter((location) => match.test(location.name))
+    } else {
+      showingLocations = locations
+    }
 
     return (
       <div className="main">
         <ListLocations
-          locations={this.state.locations}
+          locations={showingLocations}
+          updateQuery={this.updateQuery}
+          clearQuery={this.clearQuery}
         />
         <MapContainer
-          locations={this.state.locations}
+          locations={showingLocations}
         />
       </div>
     );
