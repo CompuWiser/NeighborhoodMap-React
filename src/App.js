@@ -129,6 +129,8 @@ class App extends Component {
 
           <input
             type="text"
+            role="search"
+            aria-label="Filter Markers List"
             placeholder="Type here to filter markers 🔍"
             onChange={(event) => this.updateQuery(event.target.value)}
           />
@@ -156,9 +158,9 @@ class App extends Component {
             className="map"
             google={this.props.google}
             initialCenter={{
-                lat: 30.050,
-                lng: 31.203
-              }}
+                lat: 30.0515,
+                lng: 31.200
+            }}
             zoom={17}
             onClick={this.onMapClicked}
           >
@@ -177,8 +179,9 @@ class App extends Component {
 
             <InfoWindow
               marker={activeMarker}
-              visible={showingInfoWindow}>
-                <div>
+              visible={showingInfoWindow}
+            >
+              <div>
                 <h2>{selectedPlace.info.name || selectedPlace.name}</h2>
                 <p className="category">Category: {selectedPlace.info.category}</p>
                 <ul className="address">

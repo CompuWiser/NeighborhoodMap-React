@@ -10,6 +10,11 @@ html {
   box-sizing: inherit;
 }
 
+body,
+#root {
+  max-width: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -68,7 +73,7 @@ html {
 div.list-locations {
   -ms-flex-preferred-size: 16%;
   flex-basis: 16%;
-  height: 98vh;
+  height: 100vh;
   background-color: #aaa;
 }
 
@@ -105,4 +110,8 @@ div.list-locations li a:active {
 ul.list-locations+div {
   -ms-flex-preferred-size: 84%;
   flex-basis: 84%;
+}
+
+div.map {
+  width:84% !important;
 }
