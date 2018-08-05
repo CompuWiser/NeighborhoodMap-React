@@ -115,3 +115,25 @@ ul.list-locations+div {
 div.map {
   width:84% !important;
 }
+
+.info-header {
+  font-size: 2em;
+}
+
+.category {
+  font-size: 1.7em;
+  font-weight: bold;
+}
+
+.address {
+  list-style: none;
+  padding: 0;
+  font-size: 1.6em;
+  font-weight: bold;
+}
+
+.address li{
+  font-weight: normal;
+  font-size: .9em;
+  padding-top: 5px;
+}

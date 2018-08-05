@@ -25,7 +25,6 @@ class App extends Component {
     // Attach Information from Foursquare API to every location element
     locations = locations.map((location) => {
       location.FS_Info = this.getInfoFromFoursquare(location);
-      console.log(location);
       return location;
     });
 
@@ -105,6 +104,47 @@ class App extends Component {
     })
   }
 
+  // Trap focus within list and filter field
+  trapFocus = () => {
+
+    //listen for and trap the keyboard
+    document.addEventListener("keydown", trapTabKey);
+
+    //find all focusable children
+    var focusableElementsString = "div.list-locations input, div.list-locations li a";
+    var focusableElements = document.querySelectorAll(focusableElementsString);
+
+    //convert NodeList to array
+    focusableElements = Array.prototype.slice.call(focusableElements);
+
+    var firstTabStop = focusableElements[0];
+    var lastTabStop = focusableElements[focusableElements.length - 1];
+
+    //focus first child
+    firstTabStop.focus();
+
+    function trapTabKey(e) {
+      //check for TAB key press
+      if (e.keyCode === 9) {
+
+        //SHIFT + TAB
+        if (e.shiftKey) {
+          if (document.activeElement === firstTabStop) {
+            e.preventDefault();
+            lastTabStop.focus();
+          }
+          //TAB
+        } else {
+          if (document.activeElement === lastTabStop) {
+            e.preventDefault();
+            firstTabStop.focus();
+          }
+        }
+      }
+    }
+
+  }
+
   render() {
     let {
       locations,
@@ -125,7 +165,7 @@ class App extends Component {
 
     return (
       <div className="main">
-        <div className="list-locations">
+        <div className="list-locations" aria-label="Locations Menu">
 
           <input
             type="text"
@@ -133,9 +173,10 @@ class App extends Component {
             aria-label="Filter Markers List"
             placeholder="Type here to filter markers 🔍"
             onChange={(event) => this.updateQuery(event.target.value)}
+            onFocus={this.trapFocus}
           />
 
-          <ul>
+          <ul aria-label="Locations List">
             {showingLocations.map((location, index) => (
               <li key={index}>
                 <a
@@ -180,9 +221,10 @@ class App extends Component {
             <InfoWindow
               marker={activeMarker}
               visible={showingInfoWindow}
+              aria-label="info window"
             >
-              <div>
-                <h2>{selectedPlace.info.name || selectedPlace.name}</h2>
+              <div className="info-window">
+                <h2 className="info-header">{selectedPlace.info.name || selectedPlace.name}</h2>
                 <p className="category">Category: {selectedPlace.info.category}</p>
                 <ul className="address">
                   Address:
