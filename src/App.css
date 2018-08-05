@@ -1,10 +1,12 @@
 html {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 *,
 *:before,
 *:after {
+  -webkit-box-sizing: inherit;
   box-sizing: inherit;
 }
 
@@ -13,6 +15,7 @@ html {
 }
 
 .App-logo {
+  -webkit-animation: App-logo-spin infinite 20s linear;
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
@@ -32,23 +35,48 @@ html {
   font-size: large;
 }
 
+@-webkit-keyframes App-logo-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 .main {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
 div.list-locations {
+  -ms-flex-preferred-size: 16%;
   flex-basis: 16%;
+  height: 98vh;
+  background-color: #aaa;
 }
 
 div.list-locations input {
-  width: 100%;
-  font-size: 1.8em;
+  width: 97%;
+  padding: 10px;
+  margin: 8px;
+  font-size: 1.6em;
 }
 
 div.list-locations ul {
@@ -58,13 +86,23 @@ div.list-locations ul {
 
 div.list-locations li {
   list-style: none;
-  font-size: 1.9em;
+  padding-bottom: 15px;
 }
 
 div.list-locations li a {
   text-decoration: none;
+  color: #222;
+  font-weight: bold;
+  font-size: 1.9em;
+}
+
+div.list-locations li a:visited,
+div.list-locations li a:hover,
+div.list-locations li a:active {
+  color: #222;
 }
 
 ul.list-locations+div {
+  -ms-flex-preferred-size: 84%;
   flex-basis: 84%;
 }

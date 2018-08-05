@@ -17,45 +17,24 @@ class App extends Component {
     }
   };
 
-  onMarkerClick = (selectedPlace, activeMarker, e) => {
-    this.setState({
-      selectedPlace,
-      activeMarker,
-      showingInfoWindow: true
-    });
-  }
-
-  onMapClicked = (props) => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      })
-    }
-  };
-
+  // get locations' information from local JSON file
   componentDidMount() {
     let jsonFile = require("./places.json");
     let locations = jsonFile.locations;
+
+    // Attach Information from Foursquare API to every location element
     locations = locations.map((location) => {
       location.FS_Info = this.getInfoFromFoursquare(location);
       console.log(location);
       return location;
     });
-    this.setState({ locations });
-  }
 
-  updateQuery = (query) => {
     this.setState({
-      query: query.trim(),
-      showingInfoWindow: false
-    })
+      locations
+    });
   }
 
-  clearQuery = () => {
-    this.setState({ query: "" })
-  }
-
+  // Get a Location's info using Foursquare API
   getInfoFromFoursquare({lat, lng, name}) {
     const FS_ClientID = "YY4SQ4M2HEAP54EPZL2355YZGSSF52ZVLMI1ERRVJ4R2FZRP";
     const FS_ClientSecret = "MIV4VBUVKOHBA2Y1JNS5TP2L3YXJDCQVEE5S5IQBNW2BEYVS";
@@ -69,7 +48,13 @@ class App extends Component {
       "&query="  + name +
       "&limit=1";
     
-    let info = {};
+    // Initialize info object with default data
+    let info = {
+      name: "unknown",
+      locationID: "unknown",
+      address: [],
+      category: "unknown"
+    };
     
     fetch(url)
       .then(function (response) {
@@ -80,7 +65,6 @@ class App extends Component {
         response.json()
           .then(function (data) {
             var locationData = data.response.venues[0];
-
             info.name = locationData.name;
             info.locationID = locationData.id;
             info.address = locationData.location.formattedAddress;
@@ -90,9 +74,36 @@ class App extends Component {
       })
       .catch(console.log);
     
+    //console.log(info);
     return info;
   }
 
+  // Show info about a mark when clicked
+  onMarkerClick = (selectedPlace, activeMarker, e) => {
+    this.setState({
+      selectedPlace,
+      activeMarker,
+      showingInfoWindow: true
+    });
+  }
+
+  // Hide info Window if map is clicked
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
+    }
+  };
+
+  // Using filter input field will hide infoWindows, and filter the list
+  updateQuery = (query) => {
+    this.setState({
+      query: query.trim(),
+      showingInfoWindow: false
+    })
+  }
 
   render() {
     let {
@@ -103,6 +114,7 @@ class App extends Component {
       selectedPlace
     } = this.state;
 
+    // filter locations if query is used
     let showingLocations;
     if (query) {
       const match = new RegExp(escapeRegExp(query), "i")
@@ -117,7 +129,7 @@ class App extends Component {
 
           <input
             type="text"
-            placeholder="Filter Markers"
+            placeholder="Type here to filter markers 🔍"
             onChange={(event) => this.updateQuery(event.target.value)}
           />
 
