@@ -185,7 +185,7 @@ class App extends Component {
     }
 
     return (
-      <div className="main">
+      <div className="main" role="application">
         <div className="list-locations" aria-label="Locations Menu">
 
           <input
@@ -215,7 +215,7 @@ class App extends Component {
 
         </div>
 
-        <div role="application">
+        <main role="presentation"  aria-label="Locations Map">
           <Map
             className="map"
             google={this.props.google}
@@ -260,7 +260,7 @@ class App extends Component {
               </div>
             </InfoWindow>
           </Map>
-        </div>
+        </main>
 
       </div>
     );
