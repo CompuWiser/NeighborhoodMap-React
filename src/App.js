@@ -58,6 +58,7 @@ class App extends Component {
     fetch(url)
       .then(function (response) {
         if (response.status !== 200) {
+          alert("Failed to fetch data from foursquare.com");
           return;
         }
 
@@ -69,9 +70,15 @@ class App extends Component {
             info.address = locationData.location.formattedAddress;
             info.category = locationData.categories[0].name;
           })
-          .catch(console.log);
+          .catch((error) => {
+            alert("Couldn't get appropriate info about this location from foursquare.com");
+            console.log(error);
+          });
       })
-      .catch(console.log);
+      .catch((error) => {
+        alert("Failed to fetch data from foursquare.com, refer to logs for info");
+        console.log(error);
+      });
     
     //console.log(info);
     return info;
@@ -194,7 +201,7 @@ class App extends Component {
 
         </div>
 
-        <div>
+        <div role="application">
           <Map
             className="map"
             google={this.props.google}
