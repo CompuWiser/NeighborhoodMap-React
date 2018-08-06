@@ -3,6 +3,20 @@ import "./App.css";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import escapeRegExp from "escape-string-regexp";
 
+//Handling Google's API request errors
+document.addEventListener("DOMContentLoaded", function () {
+  let googleMapsScriptTag = document.querySelectorAll("script")[1];
+
+  googleMapsScriptTag.onerror = function (err) {
+    console.log("Google Maps API failed to load!")
+
+    let rootElement = document.querySelector("#root");
+    let errorElement = document.createElement("div");
+    errorElement.innerHTML = "<div class=\"maps-failed\">Google Maps API failed to load!</div>"
+    rootElement.appendChild(errorElement)
+  }
+})
+
 class App extends Component {
   state = {
     locations: [],
