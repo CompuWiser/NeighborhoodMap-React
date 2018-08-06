@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import { GoogleApiWrapper } from "google-maps-react";
 import escapeRegExp from "escape-string-regexp";
 import LocationsList from "./Components/LocationsList"
+import MapContainer from "./Components/MapContainer"
 
 //Handling Google's API request errors
 document.addEventListener("DOMContentLoaded", function () {
@@ -151,53 +152,15 @@ class App extends Component {
           updateQuery={this.updateQuery}
         />
 
-        <main role="presentation"  aria-label="Locations Map">
-          <Map
-            className="map"
-            google={this.props.google}
-            initialCenter={{
-                lat: 30.0515,
-                lng: 31.200
-            }}
-            zoom={17}
-            onClick={this.onMapClicked}
-          >
-            
-            {showingLocations.map((location, index) => (
-              <Marker
-                key={index}
-                title={location.name}
-                name={location.name}
-                info={location.FS_Info}
-                position={{ lat: location.lat, lng: location.lng }}
-                onClick={this.onMarkerClick}
-                animation={location.name === selectedPlace.name && (1)}
-              />
-            ))}
-
-            <InfoWindow
-              marker={activeMarker}
-              visible={showingInfoWindow}
-              aria-label="info window"
-            >
-              <div className="info-window">
-                <h2 className="info-header">{selectedPlace.info.name || selectedPlace.name}</h2>
-                <p className="category">Category: {selectedPlace.info.category}</p>
-                <ul className="address">
-                  Address:
-                  {
-                    selectedPlace.info.address.map((element, index) => (
-                      <li key={index}>
-                        {element}
-                      </li>
-                    ))
-                  }
-                </ul>
-              </div>
-            </InfoWindow>
-          </Map>
-        </main>
-
+        <MapContainer
+          google={this.props.google}
+          locations={showingLocations}
+          onMapClicked={this.onMapClicked}
+          onMarkerClick={this.onMarkerClick}
+          activeMarker={activeMarker}
+          showingInfoWindow={showingInfoWindow}
+          selectedPlace={selectedPlace}
+        />
       </div>
     );
   }
