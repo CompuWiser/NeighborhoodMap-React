@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import escapeRegExp from "escape-string-regexp";
+import LocationsList from "./Components/LocationsList"
 
 //Handling Google's API request errors
 document.addEventListener("DOMContentLoaded", function () {
@@ -125,47 +126,6 @@ class App extends Component {
     })
   }
 
-  // Trap focus within list and filter field
-  trapFocus = () => {
-
-    //listen for and trap the keyboard
-    document.addEventListener("keydown", trapTabKey);
-
-    //find all focusable children
-    var focusableElementsString = "div.list-locations input, div.list-locations li a";
-    var focusableElements = document.querySelectorAll(focusableElementsString);
-
-    //convert NodeList to array
-    focusableElements = Array.prototype.slice.call(focusableElements);
-
-    var firstTabStop = focusableElements[0];
-    var lastTabStop = focusableElements[focusableElements.length - 1];
-
-    //focus first child
-    firstTabStop.focus();
-
-    function trapTabKey(e) {
-      //check for TAB key press
-      if (e.keyCode === 9) {
-
-        //SHIFT + TAB
-        if (e.shiftKey) {
-          if (document.activeElement === firstTabStop) {
-            e.preventDefault();
-            lastTabStop.focus();
-          }
-          //TAB
-        } else {
-          if (document.activeElement === lastTabStop) {
-            e.preventDefault();
-            firstTabStop.focus();
-          }
-        }
-      }
-    }
-
-  }
-
   render() {
     let {
       locations,
@@ -186,34 +146,10 @@ class App extends Component {
 
     return (
       <div className="main" role="application">
-        <div className="list-locations" aria-label="Locations Menu">
-
-          <input
-            type="text"
-            role="search"
-            aria-label="Filter Markers List"
-            placeholder="Type here to filter markers 🔍"
-            onChange={(event) => this.updateQuery(event.target.value)}
-            onFocus={this.trapFocus}
-          />
-
-          <ul aria-label="Locations List">
-            {showingLocations.map((location, index) => (
-              <li key={index}>
-                <a
-                  href="/"
-                  onClick={(evt) => {
-                    evt.preventDefault();
-                    document.querySelector(`div.gmnoprint[title="${location.name}"]`).click();
-                  }}
-                >
-                  {location.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-        </div>
+        <LocationsList
+          locations={showingLocations}
+          updateQuery={this.updateQuery}
+        />
 
         <main role="presentation"  aria-label="Locations Map">
           <Map
