@@ -123,7 +123,15 @@ class App extends Component {
   updateQuery = (query) => {
     this.setState({
       query: query.trim(),
-      showingInfoWindow: false
+      showingInfoWindow: false,
+      activeMarker: null,
+      selectedPlace: {
+        info: {
+          name: null,
+          address: ["temp"],
+          category: "placeholder"
+        }
+      }
     })
   }
 

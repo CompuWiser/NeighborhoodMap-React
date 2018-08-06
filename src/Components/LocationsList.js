@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Location from "./Location"
 
 class LocationsList extends Component {
   
@@ -60,17 +61,10 @@ class LocationsList extends Component {
 
         <ul aria-label="Locations List">
           {locations.map((location, index) => (
-            <li key={index}>
-              <a
-                href="/"
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  document.querySelector(`div.gmnoprint[title="${location.name}"]`).click();
-                }}
-              >
-                {location.name}
-              </a>
-            </li>
+            <Location
+              location={location}
+              key={index}
+            />
           ))}
         </ul>
 
